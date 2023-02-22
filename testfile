@@ -1,0 +1,598 @@
+### API-1 - Live price
+# query priceConvert {
+#   priceConvert(currency:"USD", symbol:"BNB") {
+#     success
+#     errors
+#     message
+#     data
+#   }
+# }
+
+
+# # API-2 Login API
+# mutation userLogin {
+#   userLogin(phone:"8955562054", password:"saiyam@123"){
+#     errors
+#     success
+#     user{
+#       id
+#       username
+#       password
+#       phone
+#       email
+#     }
+#   }
+# }
+
+# API-3 - Forget Password
+# mutation changePassword {
+#   changePassword(id: "63d8a89bec73e8fa0b7c48de",  new_password:"rsafdsf") {
+#     success
+#     errors
+#     user {
+#       id
+#       password
+#       username
+#       email
+#     }
+#   }
+# }
+
+
+# # API-4 Signup API
+# mutation registerUser {
+#   registerUser(email:"rahulcse022@gmail.com", password:"saiyam@123") {
+#      success
+#     errors
+#     user {
+#       username
+#       id
+#       email
+#       phone
+#       password
+#     }
+#   }
+# }
+
+
+## API-5 - All Offers (filter)
+# query filterOffers {
+#   filterOffers (offer_type:"sell", crypto_name:"usdt", offer_location:"jaipur", 
+#     offer_owner_location:"india", payment_type:"paytm", preferred_currency:"INR", offerer_verified:false)
+#   {
+#     success
+#     errors
+#  		offer {
+#       id
+#     	user_id
+#       crypto_name
+#       price_type
+#       offer_type
+#       payment_type
+#       preferred_currency
+#       offer_tags
+#       offerer_verified
+#       min_purchase
+#       max_purchase
+#       offer_price
+#       offer_time_minute
+#       offer_label
+#       offer_terms
+#       offer_condition
+#       offer_location
+#       offer_owner_location
+#     }
+#   }
+# }
+
+
+
+
+# API-6 Offer By offer id
+# query offerById {
+#   offerById(offer_id:"63d8f8fb1ff28c470b330291"){
+#      offer {
+#         id
+#         crypto_name
+#         price_type
+#         offer_type
+#         payment_type
+#         preferred_currency
+#         offer_tags
+#         offerer_verified
+#         min_purchase
+#         max_purchase
+#         offer_price
+#         offer_time_minute
+#         offer_label
+#         offer_terms
+#         offer_condition
+#         offer_location
+#         offer_owner_location
+#     }
+#   }
+# }
+
+
+
+# # API-7 Trade (Create New Trade Buy Or Sell)
+# mutation createTrade {
+#   createTrade(offer_id:"63d8f8c31ff28c470b33028e", buyer_id: "63d8f5d7b368123f2fa2caa6", 
+#     seller_id: "63d8f621b368123f2fa2caaa", cryptocurrency: "ETH", crypto_trade_amount:2.25, 
+#     fiat_trade_amount:5.24, trade_rate: 52.25, 
+#     trade_time: 30, trade_type:true, 
+#     pay_via: "Paytm", 
+#     trade_outcome:"inprogress") {
+#     success
+#     errors
+#     trade {
+#       id
+#       offer_id
+#       buyer_id
+#       seller_id
+#       cryptocurrency
+#       crypto_trade_amount
+#       fiat_trade_amount
+#       trade_rate
+#       date_start_time
+#       trade_time
+#       trade_type
+#       trade_outcome
+#       pay_via
+#       buyer_feedback
+#       seller_feedback
+#       buyer_feedback_text
+#       seller_feedback_text
+#     }
+#   }
+# }
+
+
+## API-8. User Info bu User Id.
+# query userInfoById{
+#   userInfoById(user_id:"63d8f5d7b368123f2fa2caa6"){
+#     success
+#     errors
+#     info{
+#       id
+#       username
+#       user_id
+#       preferred_currency
+#       language
+#       bio
+#       image
+#       is_email_verified
+#       is_number_verified
+#     }
+#   }
+# }
+
+## API-9 Feedback by offer id
+# query tradeByOfferID{
+#   tradeByOfferID(offer_id:"63d8f8c31ff28c470b33028e"){
+#     success
+#     errors
+#     trade {
+#       id
+#       buyer_id
+#       seller_id
+#       offer_id
+#       cryptocurrency
+#       crypto_trade_amount
+#       fiat_trade_amount
+#       trade_rate
+#       date_start_time 	
+#       trade_time
+#       trade_type
+#       pay_via
+#       buyer_feedback
+#       seller_feedback
+#       buyer_feedback_text
+#       seller_feedback_text
+#       buyer_paid
+#       seller_released
+#       trade_outcome
+#     }
+#   }
+# }
+
+# API-10. Create New Offer
+# mutation createOffer {
+#   createOffer(user_id:"63d8f5d7b368123f2fa2caa6", crypto_name: "doge", price_type: "Fixed Price", offer_type: "Sell", 
+#     payment_type: "PhonePe", preferred_currency: "INR", offer_tags: "Online", 
+#     offerer_verified:false, min_purchase: 200, max_purchase: 1000, 
+#     offer_price: 2.34, offer_time_minute: 25, offer_label: "Third Offer", 
+#     offer_terms: "this is the new terms of the offer", offer_condition: "this is the new condition of the offer", offer_location: "Jaipur", 
+#     offer_owner_location: "India" ) {
+#     success
+#     errors
+#     offer {
+#       id
+#       user_id
+#       crypto_name
+#       price_type
+#       offer_type
+#       payment_type
+#       preferred_currency
+#       offer_tags
+#       offerer_verified
+#       min_purchase
+#       max_purchase
+#       offer_price
+#       offer_time_minute
+#       offer_label
+#       offer_terms
+#       offer_condition
+#       offer_location
+#       offer_owner_location
+#     }
+#   }
+# }
+
+
+# API-12 Trade by User ID
+# query tradeByUserId{
+#   tradeByUserId(user_id:"63d8f621b368123f2fa2caaa", cryptocurrency:"eth", 
+#     start_date:"12-12-2000", end_date:"12-12-2025", pay_via:"paytm", trade_type:"selL"){
+#     success
+#     errors
+#     trade {
+#       id
+#       buyer_id
+#       seller_id
+#       offer_id
+#       cryptocurrency
+#       crypto_trade_amount
+#       fiat_trade_amount
+#       trade_rate
+#       date_start_time 	
+#       trade_time
+#       trade_type
+#       pay_via
+#       buyer_feedback
+#       seller_feedback
+#       buyer_feedback_text
+#       seller_feedback_text
+#       buyer_paid
+#       seller_released
+#       trade_outcome
+#     }
+#   }
+# }
+
+# API-13.  Offer by user id (Filter )
+# query offerByUserId {
+#   offerByUserId(user_id:"63cf699d7ae88d7688a94d18", offer_type:"Sell", 
+#     crypto_name:"usdt"){
+#     offer {
+#       id
+#       user_id
+#       offer_type
+#       crypto_name
+#     }
+#   }
+# }
+
+# mutation newTodo {
+#   createTodo(description: "Test description is here", completed:true, dueDate: "16-10-2020") {
+#     success
+#     errors
+#     todo {
+#       id
+#       completed
+#       description
+#       dueDate
+#     }
+#   }
+# }
+
+
+# query fetchAllTodos {
+#   todos {
+#     success
+#     errors
+#     todos {
+#       description
+#       completed
+#       dueDate
+#       id
+#     }
+#   }
+# }
+
+# query fetchTodo {
+#   todo(id: "63b67c98afe2029bda500f05") {
+#     success
+#     errors
+#     todo { id completed description dueDate }
+#   }
+# }
+
+# mutation markDone {
+#   markDone(todoId: "63b67cf0afe2029bda500f06") {
+#     success
+#     errors
+#     todo { id completed description dueDate }
+#   }
+# }
+
+
+# mutation {
+#   deleteTodo(todoId: "63b67cf0afe2029bda500f06") {
+#     success
+#     errors
+#   }
+# }
+
+
+# mutation updateDueDate {
+#   updateDueDate(todoId: "63b67c98afe2029bda500f05", newDate: "05-05-2020") {
+#     success
+#     errors
+#   }
+# }
+####### --------------------------------------------------------
+### New User Register 
+# mutation registerUser {
+#   registerUser(username:"rasadfhulcse", email: "saiyam@gmail.com", phone: "79765562054", password:"saiyam@123") {
+#      success
+#     errors
+#     user {
+#       username
+#       id
+#       email
+#       phone
+#       password
+#     }
+#   }
+# }
+
+
+# mutation sendEmailOTP{
+#   sendEmailOTP(to_email:"vikash.jha@ramlogics.com"){
+# success
+#      errors
+#      message
+#      data
+#      status
+#   }
+# }
+
+# mutation sendOTP{
+#   sendOTP(user_id:"63e08de3227ab5e0f47bb1c5"){
+#    success
+#     errors
+#     data
+#     message
+#     status
+#     user {
+#        username
+#         id
+#         email
+#         phone
+#         password
+#     }
+#   }
+# }
+
+# mutation verifyOTP {
+#   verifyOTP(user_id:"63e08de3227ab5e0f47bb1c5", otp:414284){
+#     success
+#     errors
+#     data
+#     message
+#     status
+#     user {
+#        username
+#         id
+#         email
+#         phone
+#         password
+#     }
+#   }
+# }
+
+
+
+# query registerUser {
+#   user(id: "63bbbf8d433a62ae6b8146d6") {
+#     success
+#     errors
+#     user { id, username  }
+#   }
+# }
+
+
+# query fetchUser {
+#   user(id: "63bbeddb61ba5434992cc0f6") {
+#     success
+#     errors
+#     user { id, username, password, email, phone }
+#   }
+# }
+
+
+# query fetchUserInfo {
+#   userInfo(id: "63bbf4bfbf493dfd89668ab8") {
+#     success
+#     errors
+#     userInfo { id, isEmailVerified,  userId, bio }
+#   }
+# }
+
+
+# mutation registerUser {
+#   registerUser(username:"newuser@123", email: "vikas@123.com", phone: "79765562054", password:"saiyam@123") {
+#      success
+#     errors
+#     user {
+#       username
+#       id
+#       email
+#       phone
+#       password
+#     }
+#   }
+# }
+
+# mutation createUserInfo {
+#   createUserInfo(username: "abcd", bio:"this is my bio") {
+#     success
+#     errors
+#     info {
+#       id, username,
+#     preferredCurrency,
+#     language,
+#     bio, 
+#     image, 
+#     isEmailVerified, 
+#     isNumberVerified
+#     }
+#   }
+# }
+
+# mutation updateBio {
+#   updateInfo(id: "63bd2eee5c9722be0e6ac3b8", username: "rahulcse022"){
+#     success
+#     errors
+#     info {
+#   		id
+#       user_id
+#       username
+      
+#     }
+#   }
+# }
+
+
+# mutation updateBio {
+#   updateInfo(id: "63bd2eee5c9722be0e6ac3b8", username: "rahulcse022"){
+#     success
+#     errors
+#     info {
+#   		id
+#       user_id
+#       username
+      
+#     }
+#   }
+# }
+
+# mutation createTrade {
+#   createTrade(buyer: "rahul", seller: "saiyam", cryptocurrency: "ETH", crypto_trade_amount:2.25, fiat_trade_amount:5.24, trade_rate: 52.25, trade_time: 30, trade_type:true, trade_outcome:"success", pay_via: "Paytm") {
+#     success
+#     errors
+#     trade {
+#       id
+#       buyer
+#       cryptocurrency
+#       crypto_trade_amount
+#       fiat_trade_amount
+#       trade_rate
+#       date_start_time
+#       trade_time
+#       trade_type
+#       trade_outcome
+#       pay_via
+
+#     }
+#   }
+# }
+
+
+
+
+
+# mutation depositeFund {
+#   depositeFund(user_id:"63beb7bffaa24674d346dc25", 
+#     assets_name:"BNB", 
+#     assets_amount:5.001)
+#   {
+#     success
+#     errors
+#     deposite{
+#       id
+#       user_id
+#       assets_name
+#       assets_amount
+#       deposite_time
+#     }
+#   }
+# }
+
+# mutation giveFeedback {
+#   giveFeedback(trade_id: "63be5646c08486ad45ecf3e0", seller_feedback: 2) {
+#     success
+#     errors
+#     trade {
+#       id
+#       buyer
+#       cryptocurrency
+#       crypto_trade_amount
+#       fiat_trade_amount
+#       trade_rate
+#       date_start_time
+#       trade_time
+#       trade_type
+#       trade_outcome
+#       pay_via
+#       buyer_feedback
+#       buyer_feedback_text
+#       seller_feedback
+#     }
+#   }
+# }
+
+
+
+# mutation createTrade {
+#   createTrade(offer_id: "63bd61964cc751374557d217", buyer: "rahul", seller: "saiyam", cryptocurrency: "ETH", crypto_trade_amount:2.25, fiat_trade_amount:5.24, trade_rate: 52.25, trade_time: 30, trade_type:true, trade_outcome:"success", pay_via: "Paytm") {
+#     success
+#     errors
+#     trade {
+#       id
+#       buyer
+#       cryptocurrency
+#       crypto_trade_amount
+#       fiat_trade_amount
+#       trade_rate
+#       date_start_time
+#       trade_time
+#       trade_type
+#       trade_outcome
+#       pay_via
+
+#     }
+#   }
+# }
+ 
+# mutation createOffer {
+#   createOffer(crypto_name: "BTC", price_type: "Fixed", offer_type: "abcd", 
+#     payment_type: "Patym", preferred_currency: "BTC", offer_tags: "No payment", 
+#     offerer_verified:false, min_purchase: 250, max_purchase: 1000, 
+#     offer_price: 23.34, offer_time_minute: 5, offer_label: "First Offer", 
+#     offer_terms: "String", offer_condition: "String", offer_location: "String", 
+#     offer_owner_location: "String" ) {
+#     success
+#     errors
+#     offer {
+#       id
+#       crypto_name
+#       price_type
+#       offer_type
+#       payment_type
+#       preferred_currency
+#       offer_tags
+#       offerer_verified
+#       min_purchase
+#       max_purchase
+#       offer_price
+#       offer_time_minute
+#       offer_label
+#       offer_terms
+#       offer_condition
+#       offer_location
+#       offer_owner_location
+#     }
+#   }
+# }

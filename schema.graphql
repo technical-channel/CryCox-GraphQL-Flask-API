@@ -1,0 +1,405 @@
+# @format
+
+scalar Date
+scalar Float
+
+schema {
+     query: Query
+     mutation: Mutation
+}
+
+type OTP {
+     id: ID!
+     email: String!
+     otp: String
+     updated_at: Date
+}
+
+type OTPResult {
+     success: Boolean!
+     errors: [String]
+     otp: [OTP]
+}
+
+type DepositeRequest {
+     id: ID!
+     user_id: ID!
+     crypto_name: String
+     crypto_amount: Float
+     from_address: String
+     to_address: String
+     remark: String
+     status: String
+     created_at: Date
+     updated_at: Date
+}
+
+type depositeRequestResult {
+     success: Boolean!
+     errors: [String]
+     deposite_request: DepositeRequest
+}
+
+type Todo {
+     id: ID!
+     description: String!
+     completed: Boolean!
+     dueDate: String!
+}
+
+# type Test {
+#   id: ID
+#   public_id: String
+#   name: String
+#   email: String
+#   password: String
+# }
+
+# type TestResult {
+#   success: Boolean!
+#   errors: [String]
+#   test: [Test]
+#   token: String
+# }
+
+type Test {
+     id: ID!
+     username: String
+     email: String
+     phone: String
+     password: String!
+     createdAt: Date!
+}
+
+type TestResult {
+     success: Boolean!
+     errors: [String]
+     test: [Test]
+     token: String
+}
+
+type userResult {
+     success: Boolean!
+     errors: [String]
+     user: [Registration]
+     token: String
+}
+
+type Registration {
+     id: ID!
+     username: String
+     email: String
+     phone: String
+     metamask: String
+     password: String!
+     createdAt: Date!
+}
+
+type Info {
+     id: ID
+     user_id: ID
+     username: String
+     preferred_currency: String
+     language: String
+     bio: String
+     image: String
+     is_email_verified: Boolean
+     is_number_verified: Boolean
+}
+
+type Trade {
+     id: ID
+     offer_id: ID
+     buyer_id: ID
+     seller_id: ID
+     cryptocurrency: String
+     crypto_trade_amount: Float
+     fiat_trade_amount: Float
+     trade_rate: Float
+     date_start_time: Date
+     trade_time: Int
+     trade_type: String
+     trade_outcome: String
+     pay_via: String
+     buyer_feedback: Int
+     seller_feedback: Int
+     buyer_feedback_text: String
+     seller_feedback_text: String
+     buyer_paid: Boolean
+     seller_released: Boolean
+}
+
+type CreateOffer {
+     id: ID!
+     user_id: ID!
+     crypto_name: String
+     price_type: String
+     offer_type: String
+     payment_type: [String]
+     preferred_currency: String
+     offer_tags: [String]
+     offerer_verified: Boolean
+     min_purchase: Float
+     max_purchase: Float
+     offer_price: Float
+     offer_margin: Int
+     offer_time_minute: Int
+     offer_label: String
+     offer_terms: String
+     offer_condition: String
+     offer_location: String
+     offer_owner_location: Date
+}
+
+type Assets {
+     id: ID!
+     user_id: ID
+     btc: Float
+     eth: Float
+     bnb: Float
+     shiba: Float
+     doge: Float
+     usdt_eth: Float
+     usdt_bnb: Float
+}
+
+type DepositeAssets {
+     id: ID
+     user_id: ID
+     assets_name: String
+     assets_amount: Float
+     deposite_time: Date
+}
+
+type depositeResult {
+     success: Boolean!
+     errors: [String]
+     deposite: [DepositeAssets]
+}
+
+# type CreateFeedback {
+#     id: ID!
+#     offer_id: ID
+#     trade_id: ID
+#     buyer: String
+#     seller: String
+#     buyer_feedback: Int
+#     seller_feedback: Int
+#     buyer_feedback_text: String
+#     seller_feedback_text: String
+# }
+
+# type feedbackResult {
+#     success: Boolean!
+#     errors: [String]
+#     feedback: CreateFeedback
+# }
+
+type assetsResult {
+     success: Boolean!
+     errors: [String]
+     balance: Assets
+}
+
+type offerResult {
+     success: Boolean!
+     errors: [String]
+     offer: [CreateOffer]
+}
+
+type tradeResult {
+     success: Boolean!
+     errors: [String]
+     trade: [Trade]
+     data: [String]
+}
+
+type Result {
+     success: Boolean!
+     errors: [String]
+     message: [String]
+     data: [Float]
+     user: [Registration]
+     status: [String]
+}
+
+type infoResult {
+     success: Boolean!
+     errors: [String]
+     info: Info
+}
+
+type TodoResult {
+     success: Boolean!
+     errors: [String]
+     todo: Todo
+}
+
+type TodosResult {
+     success: Boolean!
+     errors: [String]
+     todos: [Todo]
+}
+
+type deleteTodoResult {
+     success: Boolean!
+     errors: [String]
+}
+
+type Query {
+     priceConvert(currency: String, symbol: String): Result!
+     user(id: ID!): userResult
+     info(id: ID!): infoResult
+     tradeByUserId(
+          user_id: ID!
+          cryptocurrency: String
+          trade_type: String
+          trade_outcome: String
+          start_date: String
+          end_date: String
+          pay_via: String
+     ): tradeResult!
+
+     ## Filter offers
+     filterOffers( #offer_type, crypto_name, payment_type, want_to_spend, offer_location, offer_owner_location, preferred_currency, offerer_verified
+          offer_type: String!
+          crypto_name: String
+          payment_type: [String]
+          preferred_currency: String
+          offer_location: String
+          offer_owner_location: String
+          want_to_spend: Float
+          offerer_verified: Boolean
+     ): offerResult!
+
+     ## Offer by id
+     offerById(offer_id: ID!): offerResult!
+
+     ## user info by user id
+     userInfoById(user_id: ID!): infoResult!
+
+     ## trade by offer id
+     tradeByOfferID(offer_id: ID!): tradeResult!
+
+     # API-16 Fetch User Balance by user id
+     userBalanceByUserId(user_id: ID!): assetsResult!
+
+     #
+     tradeByTradeId(id: ID!): tradeResult!
+     # Offer by user id
+     offerByUserId(
+          user_id: ID!
+          offer_type: String
+          crypto_name: String
+     ): offerResult!
+
+     depositeHistoryByUserId(user_id: ID!): depositeResult!
+
+     isMetamaskExist(metamask: String!): userResult!
+     verifyEmailOTP(to_email: String!, otp: String!): Result!
+}
+
+type Mutation {
+     test: userResult
+     registerUser(
+          email: String
+          phone: String
+          username: String!
+          metamask: String!
+          password: String!
+     ): userResult!
+     createUserInfo(username: String!, bio: String): infoResult!
+     updateInfo(
+          user_id: ID!
+          bio: String
+          username: String
+          preferred_currency: String
+          language: String
+          image: String
+          is_email_verified: Boolean
+          is_number_verified: Boolean
+     ): infoResult!
+     createTrade(
+          offer_id: ID
+          buyer_id: ID
+          seller_id: ID
+          cryptocurrency: String
+          crypto_trade_amount: Float
+          fiat_trade_amount: Float
+          trade_rate: Float
+          trade_time: Int
+          trade_type: String
+          pay_via: String
+          trade_outcome: String
+     ): tradeResult!
+     createOffer(
+          user_id: ID!
+          crypto_name: String
+          price_type: String
+          offer_type: String
+          payment_type: [String]
+          preferred_currency: String
+          offer_tags: [String]
+          offerer_verified: Boolean
+          offer_margin: Int
+          min_purchase: Float
+          max_purchase: Float
+          offer_price: Float
+          offer_time_minute: Int
+          offer_label: String
+          offer_terms: String
+          offer_condition: String
+          offer_location: String
+          offer_owner_location: String
+          created_at: Date
+     ): offerResult!
+     giveFeedback(
+          trade_id: ID!
+          buyer_feedback: Int
+          seller_feedback: Int
+          buyer_feedback_text: String
+          seller_feedback_text: String
+     ): tradeResult!
+     depositeFund(
+          user_id: ID
+          assets_name: String
+          assets_amount: Float
+          deposite_time: Date
+     ): depositeResult!
+     changePassword(
+          id: ID!
+          old_password: String
+          new_password: String!
+     ): userResult!
+
+     # sendOTP(id: ID!): Result!
+
+     verifyOTP(user_id: ID!, otp: Int!): Result!
+     sendOTP(user_id: ID!): Result!
+
+     updateTradeInfoByTradeID(
+          trade_id: ID!
+          buyer_paid: Boolean
+          seller_released: Boolean
+          trade_outcome: String
+     ): tradeResult!
+
+     userLogin(email: String, phone: String, password: String!): userResult
+
+     testSignup(name: String!, email: String!, password: String!): TestResult
+
+     registerMetamask(user_id: ID!, metamask: String!): userResult!
+
+     createDepositRequest(
+          user_id: ID!
+          crypto_name: String!
+          crypto_amount: Float!
+          from_address: String!
+          to_address: String!
+          remark: String
+     ): depositeRequestResult!
+
+     sendEmailOTP(to_email: String!): Result!
+
+     deleteOfferByOfferId(offer_id: ID!): offerResult
+}
